@@ -1,7 +1,9 @@
 FROM openjdk:18-slim
 
-COPY target/*.jar /app/app.jar
+WORKDIR /app
 
-EXPOSE 8080
+COPY . .
 
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+RUN ./mvnw clean package -Pproduction
+
+CMD ["java", "-jar", "/app/target/*.jar"]
