@@ -1,9 +1,28 @@
 FROM openjdk:18-slim
 
-WORKDIR /app
+# Copy the source code to the container
+COPY . /app
 
-COPY . .
+# Build the project
+RUN mvn clean package -Pproduction
 
-RUN ./mvnw clean package -Pproduction
+# Copy the built application JAR file to the `app` directory
+COPY target/*.jar /app/app.jar
 
-CMD ["java", "-jar", "/app/target/*.jar"]
+# Expose port 8080
+EXPOSE 8080
+
+# Start the application
+CMD ["java", "-jar", "/app/app.jar"]
+
+
+
+
+
+# FROM openjdk:18-slim
+#
+# COPY target/*.jar /app/app.jar
+#
+# EXPOSE 8080
+#
+# ENTRYPOINT ["java", "-jar", "/app/app.jar"]
