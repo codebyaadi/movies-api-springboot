@@ -7,7 +7,7 @@ RUN apt-get update && apt-get install -y maven
 COPY . /app
 
 # Build the project
-RUN mvn clean package -Pproduction
+RUN mvn clean package
 
 # Copy the built application JAR file to the `app` directory
 COPY target/*.jar /app/app.jar
